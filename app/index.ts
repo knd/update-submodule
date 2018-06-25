@@ -7,7 +7,8 @@ import Listr from 'listr';
 program
     .version('0.1.0')
     .command('update <submodule>')
-    .action((submodule) => {
+    .option('-ch, --commitHash [commitHash]', 'commit id')
+    .action((submodule, args) => {
         const branch: string = 'develop';
 
         new Listr([
@@ -18,6 +19,11 @@ program
             {
                 title: `Fetch and rebase ${submodule}`,
                 task: () => execa.shell(`git submodule update ${submodule} --remote --rebase`)
+            },
+            {
+                title: `Checkout ${submodule}:${branch}:${args.commitHash}`,
+                skip: () => args.commitHash === undefined || args.commitHash === null,
+                task: () => execa.shell(`cd ${submodule} && git checkout ${args.commitHash}`)
             },
             {
                 title: `Stage ${submodule}`,

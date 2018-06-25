@@ -5,7 +5,7 @@ import Listr from 'listr';
 
 
 program
-    .version('0.5.2')
+    .version('0.5.3')
     .command('update <submodule>')
     .option('-C, --commitHash [commitHash]', 'commit id')
     .option('-b, --branch [updateSubmoduleBranch]', 'create update submodule branch from "develop" branch')
@@ -38,11 +38,20 @@ program
                     })
             },
             {
-                title: `Create update submodule branch "${args.branch}" from "develop"`,
+                title: `Check out "develop" branch`,
                 skip: ctx => ctx.abort || args.branch === undefined || args.branch === null,
-                task: ctx => execa.shell(`git checkout ${developBranch} && git branch -D ${args.branch} && git checkout -b ${args.branch}`)
+                task: ctx => execa.shell(`git checkout ${developBranch}`)
                     .catch(() => {
                         ctx.abort = true;
+                    })
+            },
+            {
+                title: `Create new branch update submodule`,
+                skip: ctx => ctx.abort || args.branch === undefined || args.branch === null,
+                task: ctx => execa.shell(`git checkout -b ${args.branch}`)
+                    .catch((err) => {
+                        ctx.abort = true;
+                        console.log(err);
                     })
             },
             {

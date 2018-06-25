@@ -9,7 +9,7 @@ var commander_1 = __importDefault(require("commander"));
 var execa_1 = __importDefault(require("execa"));
 var listr_1 = __importDefault(require("listr"));
 commander_1.default
-    .version('0.5.2')
+    .version('0.5.3')
     .command('update <submodule>')
     .option('-C, --commitHash [commitHash]', 'commit id')
     .option('-b, --branch [updateSubmoduleBranch]', 'create update submodule branch from "develop" branch')
@@ -41,11 +41,20 @@ commander_1.default
             }); }
         },
         {
-            title: "Create update submodule branch \"" + args.branch + "\" from \"develop\"",
+            title: "Check out \"develop\" branch",
             skip: function (ctx) { return ctx.abort || args.branch === undefined || args.branch === null; },
-            task: function (ctx) { return execa_1.default.shell("git checkout " + developBranch + " && git branch -D " + args.branch + " && git checkout -b " + args.branch)
+            task: function (ctx) { return execa_1.default.shell("git checkout " + developBranch)
                 .catch(function () {
                 ctx.abort = true;
+            }); }
+        },
+        {
+            title: "Create new branch update submodule",
+            skip: function (ctx) { return ctx.abort || args.branch === undefined || args.branch === null; },
+            task: function (ctx) { return execa_1.default.shell("git checkout -b " + args.branch)
+                .catch(function (err) {
+                ctx.abort = true;
+                console.log(err);
             }); }
         },
         {

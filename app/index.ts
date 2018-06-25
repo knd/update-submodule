@@ -7,7 +7,7 @@ import Listr from 'listr';
 program
     .version('0.1.0')
     .command('update <submodule>')
-    .option('-ch, --commitHash [commitHash]', 'commit id')
+    .option('-C, --commitHash [commitHash]', 'commit id')
     .action((submodule, args) => {
         const branch: string = 'develop';
 

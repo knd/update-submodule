@@ -11,7 +11,7 @@ var listr_1 = __importDefault(require("listr"));
 commander_1.default
     .version('0.1.0')
     .command('update <submodule>')
-    .option('-ch, --commitHash [commitHash]', 'commit id')
+    .option('-C, --commitHash [commitHash]', 'commit id')
     .action(function (submodule, args) {
     var branch = 'develop';
     new listr_1.default([

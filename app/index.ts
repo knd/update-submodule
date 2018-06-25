@@ -5,7 +5,7 @@ import Listr from 'listr';
 
 
 program
-    .version('0.5.3')
+    .version('0.5.4')
     .command('update <submodule>')
     .option('-C, --commitHash [commitHash]', 'commit id')
     .option('-b, --branch [updateSubmoduleBranch]', 'create update submodule branch from "develop" branch')
@@ -73,7 +73,7 @@ program
             {
                 title: `Pushing to remote`,
                 skip: ctx => ctx.abort,
-                task: ctx => execa.shell(`git push`)
+                task: () => execa.shell(`git push -u upstream $(git rev-parse --abbrev-ref HEAD)`)
             }
         ]).run().then(() => {
             execa.shell(`git show ${submodule}`)

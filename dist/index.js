@@ -9,7 +9,7 @@ var commander_1 = __importDefault(require("commander"));
 var execa_1 = __importDefault(require("execa"));
 var listr_1 = __importDefault(require("listr"));
 commander_1.default
-    .version('0.5.3')
+    .version('0.5.4')
     .command('update <submodule>')
     .option('-C, --commitHash [commitHash]', 'commit id')
     .option('-b, --branch [updateSubmoduleBranch]', 'create update submodule branch from "develop" branch')
@@ -76,7 +76,7 @@ commander_1.default
         {
             title: "Pushing to remote",
             skip: function (ctx) { return ctx.abort; },
-            task: function (ctx) { return execa_1.default.shell("git push"); }
+            task: function () { return execa_1.default.shell("git push -u upstream $(git rev-parse --abbrev-ref HEAD)"); }
         }
     ]).run().then(function () {
         execa_1.default.shell("git show " + submodule)

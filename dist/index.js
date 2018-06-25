@@ -45,7 +45,7 @@ commander_1.default
             task: function () { return execa_1.default.shell("git push"); }
         }
     ]).run().then(function () {
-        execa_1.default.shell("git log --oneline -n 1 " + submodule)
+        execa_1.default.shell("git show " + submodule)
             .then(function (result) {
             console.log(submodule + " is now pointing to:");
             console.log(result.stdout);

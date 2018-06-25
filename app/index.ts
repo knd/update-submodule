@@ -42,7 +42,7 @@ program
                 task: () => execa.shell(`git push`)
             }
         ]).run().then(() => {
-            execa.shell(`git log --oneline -n 1 ${submodule}`)
+            execa.shell(`git show ${submodule}`)
                 .then(result => {
                     console.log(`${submodule} is now pointing to:`);
                     console.log(result.stdout);

@@ -1,6 +1,6 @@
 {
   "name": "update-submodule",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "automate update submodule",
   "main": "./dist/index.js",
   "author": "Khanh Dao <khanhdao.knd@gmail.com>",

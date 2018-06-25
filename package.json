@@ -1,0 +1,25 @@
+{
+  "name": "update-submodule",
+  "version": "0.1.0",
+  "description": "automate update submodule",
+  "main": "./dist/index.js",
+  "author": "Khanh Dao <khanhdao.knd@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": " tsc; ./makeExecutableNodeScript.js ./dist/index.js ; chmod +x ./dist/index.js"
+  },
+  "bin": {
+    "update-submodule": "./dist/index.js"
+  },
+  "dependencies": {
+    "commander": "^2.15.1",
+    "execa": "^0.10.0",
+    "listr": "^0.14.1"
+  },
+  "devDependencies": {
+    "@types/commander": "^2.12.2",
+    "@types/execa": "^0.9.0",
+    "@types/listr": "^0.13.0",
+    "@types/node": "^10.3.5"
+  }
+}

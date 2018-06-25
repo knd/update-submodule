@@ -9,7 +9,7 @@ var commander_1 = __importDefault(require("commander"));
 var execa_1 = __importDefault(require("execa"));
 var listr_1 = __importDefault(require("listr"));
 commander_1.default
-    .version('0.5.0')
+    .version('0.5.1')
     .command('update <submodule>')
     .option('-C, --commitHash [commitHash]', 'commit id')
     .option('-b, --branch [updateSubmoduleBranch]', 'create update submodule branch from "develop" branch')
@@ -67,7 +67,6 @@ commander_1.default
             task: function (ctx) { return execa_1.default.shell("git commit -m \"Update submodule " + submodule + "\"")
                 .catch(function (err) {
                 ctx.abort = true;
-                console.error(err);
             }); }
         },
         {

@@ -5,7 +5,7 @@ import Listr from 'listr';
 
 
 program
-    .version('0.5.0')
+    .version('0.5.1')
     .command('update <submodule>')
     .option('-C, --commitHash [commitHash]', 'commit id')
     .option('-b, --branch [updateSubmoduleBranch]', 'create update submodule branch from "develop" branch')
@@ -64,7 +64,6 @@ program
                 task: ctx => execa.shell(`git commit -m "Update submodule ${submodule}"`)
                     .catch((err) => {
                         ctx.abort = true;
-                        console.error(err);
                     })
             },
             {

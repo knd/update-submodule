@@ -15,7 +15,7 @@ program
         new Listr([
             {
                 title: `Fetch ALL upstream`,
-                skip: ctx => ctx.abort,
+                skip: () => false,
                 task: ctx => execa.shell(`git fetch upstream --recurse-submodules --prune`)
                     .catch((err) => {
                         ctx.abort = true;
@@ -41,7 +41,7 @@ program
                     })
             },
             {
-                title: `Create update submodule branch "${args.branch}"`,
+                title: `Create update submodule branch "${args.branch}" from "develop"`,
                 skip: ctx => ctx.abort || args.branch === undefined || args.branch === null,
                 task: ctx => execa.shell(`git checkout ${developBranch} && git branch -D ${args.branch} && git checkout -b ${args.branch}`)
                     .catch((err) => {

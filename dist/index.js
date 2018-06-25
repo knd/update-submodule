@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -16,7 +18,7 @@ commander_1.default
     new listr_1.default([
         {
             title: "Fetch ALL upstream",
-            skip: function (ctx) { return ctx.abort; },
+            skip: function () { return false; },
             task: function (ctx) { return execa_1.default.shell("git fetch upstream --recurse-submodules --prune")
                 .catch(function (err) {
                 ctx.abort = true;
@@ -42,7 +44,7 @@ commander_1.default
             }); }
         },
         {
-            title: "Create update submodule branch \"" + args.branch + "\"",
+            title: "Create update submodule branch \"" + args.branch + "\" from \"develop\"",
             skip: function (ctx) { return ctx.abort || args.branch === undefined || args.branch === null; },
             task: function (ctx) { return execa_1.default.shell("git checkout " + developBranch + " && git branch -D " + args.branch + " && git checkout -b " + args.branch)
                 .catch(function (err) {

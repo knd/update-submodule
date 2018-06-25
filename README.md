@@ -20,6 +20,12 @@ cd <into/your/parent/directory/that/contains/submodules>
 update-submodule update <submodule-directory>
 ```
 
+## Get help
+
+```
+update-submodule update -h
+```
+
 ### Upgrade
 
 ```
